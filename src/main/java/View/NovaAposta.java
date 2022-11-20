@@ -20,7 +20,7 @@ public class NovaAposta extends javax.swing.JFrame {
     String stockName;
     String email;
     int numeroCavalo;
-    Double valorAposta;
+    int valorAposta;
 
     public NovaAposta() {
         initComponents();
@@ -136,7 +136,7 @@ public class NovaAposta extends javax.swing.JFrame {
     private void btnNovaApostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaApostaActionPerformed
         try {
             this.setNumeroCavalo(Integer.parseInt(numeroCavaloInput.getText()));
-            this.setValorAposta(Double.parseDouble(valorApostaInput.getText()));
+            this.setValorAposta(Integer.parseInt(valorApostaInput.getText()));
             
             Double valorAnterior = CRUD.returnValorFromUserTable(this.email);
             CRUD.updateInTableCarteira((valorAnterior - this.getValorAposta()), this.email);
@@ -147,6 +147,7 @@ public class NovaAposta extends javax.swing.JFrame {
             sl.setEmail(this.getEmail());
             sl.atualizarLabel();
             sl.setVisible(true);
+            sl.corridaCavalo(this.getNumeroCavalo(), this.getValorAposta());
             this.dispose();
 
         } catch (SQLException ex) {            
@@ -175,7 +176,7 @@ public class NovaAposta extends javax.swing.JFrame {
     }//GEN-LAST:event_valorApostaInputKeyPressed
 
     private void valorApostaInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorApostaInputActionPerformed
-        setValorAposta(Double.parseDouble(valorApostaInput.getText().trim()));
+//        setValorAposta(Double.parseDouble(valorApostaInput.getText().trim()));
     }//GEN-LAST:event_valorApostaInputActionPerformed
 
     private void numeroCavaloInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroCavaloInputActionPerformed
@@ -220,11 +221,11 @@ public class NovaAposta extends javax.swing.JFrame {
         this.email = email;
     }
 
-    public Double getValorAposta() {
+    public int getValorAposta() {
         return valorAposta;
     }
 
-    public void setValorAposta(Double valorAposta) {
+    public void setValorAposta(int valorAposta) {
         this.valorAposta = valorAposta;
     }
 

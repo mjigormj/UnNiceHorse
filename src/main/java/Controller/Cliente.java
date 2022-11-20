@@ -1,22 +1,26 @@
 package Controller;
 
+import Model.RankingCavalo;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Cliente {
-    public static void cliente() {
+    public static RankingCavalo cliente(int cavaloAposta, int valorAposta) {
         Socket socket;
         final int PORTA = 1234;
         final String IP = "127.0.0.1";
         PrintStream out;
         Scanner in;
-        Scanner teclado;
 
         try {
             socket = new Socket(IP, PORTA);
             out = new PrintStream(socket.getOutputStream());
             in = new Scanner(socket.getInputStream());
-            teclado = new Scanner(System.in);
             // enviando o cavalo que foi feita a aposta
             System.out.println("Corrida de Cavalos");
             Thread.sleep(1 * 1000);
@@ -24,29 +28,40 @@ public class Cliente {
             Thread.sleep(1 * 1000);
             System.out.println("");
             System.out.print("Escolha o número do cavalo em que você irá apostar (1 a 5): ");
-            int cavaloAposta = teclado.nextInt();
+            System.out.println(cavaloAposta);
+            Thread.sleep(1 * 1000);
             System.out.println("Quanto deseja apostar: ");
-            int valorAposta = teclado.nextInt();
+            System.out.println(valorAposta);
 
-            while (cavaloAposta<1 || cavaloAposta >5 ) {
-                System.out.println("Escolha inválida!!!");
-                System.out.print("Selecione o número do cavalo que deseja apostar(1 a 5): ");
-                cavaloAposta = teclado.nextInt();
-            }
+//            while (cavaloAposta<1 || cavaloAposta >5 ) {
+//                System.out.println("Escolha inválida!!!");
+//                System.out.print("Selecione o número do cavalo que deseja apostar(1 a 5): ");
+//                cavaloAposta = teclado.nextInt();
+//            }
 
             out.println(cavaloAposta-1);
             out.println(valorAposta);
 
             // recebe o resultado da corrida
-            String resultado = in.nextLine();
-            System.out.println("");
-            System.out.println(resultado);
             
-            teclado.close();
+            // get the input stream from the connected socket
+            InputStream inputStream = socket.getInputStream();
+            // create a DataInputStream so we can read data from it.
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+
+            // read the list of messages from the socket
+            List<RankingCavalo> rankingCavalos = new ArrayList();
+            rankingCavalos.addAll((List<RankingCavalo>) objectInputStream.readObject());
+            
+            System.out.println("");
+            System.out.println("resultado-> "+rankingCavalos);
+
             socket.close();
             
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException | InterruptedException e) {
             System.out.println("Erro no cliente: " + e.getMessage());
         }
+        
+        return new RankingCavalo();
     }
 }

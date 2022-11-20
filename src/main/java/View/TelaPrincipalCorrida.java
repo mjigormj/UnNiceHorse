@@ -269,6 +269,9 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
     }
 
     // Methods
+    public void corridaCavalo(int aposta, int valorAposta){
+        Cliente.cliente(aposta, valorAposta);
+    }
     private static final DecimalFormat df = new DecimalFormat("0.00");
 //    public void tituloList() throws SQLException, IOException {
 //        
