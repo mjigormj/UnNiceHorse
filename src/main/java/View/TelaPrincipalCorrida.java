@@ -97,7 +97,7 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
         pocoto2.setIcon(new javax.swing.ImageIcon("C:\\Users\\igorc\\OneDrive\\Documentos\\NetBeansProjects\\CorridaCavalo\\src\\main\\java\\View\\Icons\\cavalo2.png")); // NOI18N
         pocoto2.setToolTipText("");
 
-        jlSaldo.setText("Saldo da carteira");
+        jlSaldo.setText("Saldo da carteira:");
 
         pocoto1.setIcon(new javax.swing.ImageIcon("C:\\Users\\igorc\\OneDrive\\Documentos\\NetBeansProjects\\CorridaCavalo\\src\\main\\java\\View\\Icons\\cavalo1.png")); // NOI18N
         pocoto1.setToolTipText("");
@@ -205,6 +205,7 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
     private void btnNovaApostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaApostaActionPerformed
         NovaAposta ss = new NovaAposta();
         ss.setVisible(true);
+        ss.setEmail(this.getEmail());
         //Cliente.cliente();
         this.dispose();
     }//GEN-LAST:event_btnNovaApostaActionPerformed
@@ -212,6 +213,7 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
             CRUD.sacarSaldoCarteira(this.getEmail());
+            this.atualizarLabel();
         } catch (SQLException ex) {
             Logger.getLogger(TelaPrincipalCorrida.class.getName()).log(Level.SEVERE, null, ex);
         }

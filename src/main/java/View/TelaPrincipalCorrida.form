@@ -220,7 +220,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jlSaldo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Saldo da carteira"/>
+        <Property name="text" type="java.lang.String" value="Saldo da carteira:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="pocoto1">

@@ -19,6 +19,7 @@ public class NovaAposta extends javax.swing.JFrame {
 
     String stockName;
     String email;
+    int numeroCavalo;
     Double valorAposta;
 
     public NovaAposta() {
@@ -32,9 +33,9 @@ public class NovaAposta extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         valorApostaInput = new javax.swing.JTextField();
-        btnAddStock = new javax.swing.JButton();
+        btnNovaAposta = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
-        numeroCavalo = new javax.swing.JTextField();
+        numeroCavaloInput = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -53,10 +54,10 @@ public class NovaAposta extends javax.swing.JFrame {
             }
         });
 
-        btnAddStock.setText("+");
-        btnAddStock.addActionListener(new java.awt.event.ActionListener() {
+        btnNovaAposta.setText("+");
+        btnNovaAposta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddStockActionPerformed(evt);
+                btnNovaApostaActionPerformed(evt);
             }
         });
 
@@ -67,14 +68,14 @@ public class NovaAposta extends javax.swing.JFrame {
             }
         });
 
-        numeroCavalo.addActionListener(new java.awt.event.ActionListener() {
+        numeroCavaloInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numeroCavaloActionPerformed(evt);
+                numeroCavaloInputActionPerformed(evt);
             }
         });
-        numeroCavalo.addKeyListener(new java.awt.event.KeyAdapter() {
+        numeroCavaloInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                numeroCavaloKeyPressed(evt);
+                numeroCavaloInputKeyPressed(evt);
             }
         });
 
@@ -98,7 +99,7 @@ public class NovaAposta extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(numeroCavalo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(numeroCavaloInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
@@ -106,7 +107,7 @@ public class NovaAposta extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(valorApostaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(34, 34, 34)
-                                    .addComponent(btnAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnNovaAposta, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(73, 73, 73))))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
@@ -120,10 +121,10 @@ public class NovaAposta extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(numeroCavalo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(numeroCavaloInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddStock)
+                    .addComponent(btnNovaAposta)
                     .addComponent(valorApostaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(45, 45, 45))
@@ -132,21 +133,32 @@ public class NovaAposta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStockActionPerformed
+    private void btnNovaApostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaApostaActionPerformed
         try {
+            this.setNumeroCavalo(Integer.parseInt(numeroCavaloInput.getText()));
+            this.setValorAposta(Double.parseDouble(valorApostaInput.getText()));
+            
             Double valorAnterior = CRUD.returnValorFromUserTable(this.email);
-            CRUD.updateInTableCarteira(valorAnterior - valorAposta, this.email);  
+            CRUD.updateInTableCarteira((valorAnterior - this.getValorAposta()), this.email);
+            valorAnterior = CRUD.returnSaldoFromCarteiraUnNiceHorse(1);
+            CRUD.updateInTableCarteiraUnNiceHorse((valorAnterior + this.getValorAposta()), 1);
+            JOptionPane.showMessageDialog(null, "Aposta realizada", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+            TelaPrincipalCorrida sl = new TelaPrincipalCorrida();
+            sl.setEmail(this.getEmail());
+            sl.atualizarLabel();
+            sl.setVisible(true);
+            this.dispose();
 
         } catch (SQLException ex) {            
             Logger.getLogger(NovaAposta.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch ( Exception e) {
+        catch ( IOException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "DIGITE APENAS NÚEMEROS", "ERRO", JOptionPane.ERROR_MESSAGE);
 
         }
 
 
-    }//GEN-LAST:event_btnAddStockActionPerformed
+    }//GEN-LAST:event_btnNovaApostaActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         TelaPrincipalCorrida sl = new TelaPrincipalCorrida();
@@ -166,13 +178,13 @@ public class NovaAposta extends javax.swing.JFrame {
         setValorAposta(Double.parseDouble(valorApostaInput.getText().trim()));
     }//GEN-LAST:event_valorApostaInputActionPerformed
 
-    private void numeroCavaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroCavaloActionPerformed
+    private void numeroCavaloInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroCavaloInputActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_numeroCavaloActionPerformed
+    }//GEN-LAST:event_numeroCavaloInputActionPerformed
 
-    private void numeroCavaloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numeroCavaloKeyPressed
+    private void numeroCavaloInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numeroCavaloInputKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_numeroCavaloKeyPressed
+    }//GEN-LAST:event_numeroCavaloInputKeyPressed
 
     public static void main(String args[]) {
         try {
@@ -215,18 +227,28 @@ public class NovaAposta extends javax.swing.JFrame {
     public void setValorAposta(Double valorAposta) {
         this.valorAposta = valorAposta;
     }
+
+    public int getNumeroCavalo() {
+        return numeroCavalo;
+    }
+
+    public void setNumeroCavalo(int numeroCavalo) {
+        this.numeroCavalo = numeroCavalo;
+    }
+    
+    
     
     
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddStock;
+    private javax.swing.JButton btnNovaAposta;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField numeroCavalo;
+    private javax.swing.JTextField numeroCavaloInput;
     private javax.swing.JTextField valorApostaInput;
     // End of variables declaration//GEN-END:variables
 }

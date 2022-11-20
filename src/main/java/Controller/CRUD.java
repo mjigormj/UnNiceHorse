@@ -129,4 +129,28 @@ public class CRUD {
         con.close();
         return thereValue;
     }
+
+    public static void updateInTableCarteiraUnNiceHorse(double valor, int i) throws SQLException {
+        Connection con;
+        con = Conector.conect();
+
+        PreparedStatement stmt = con.prepareStatement("update carteiraunnicehorse set saldo_carteira=" + valor + " where pk_horse ='" + i + "';");
+        stmt.executeUpdate();     
+
+        stmt.close();
+        con.close();
+    }
+
+    public static Double returnSaldoFromCarteiraUnNiceHorse(int i) throws SQLException, IOException {
+        Connection con;
+        con = Conector.conect();
+        Double saldo = 0.0;
+        PreparedStatement stmt = con.prepareStatement("select saldo_carteira from carteiraunnicehorse where pk_horse='" + i + "';");
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            saldo = Double.parseDouble(rs.getString("saldo_carteira"));
+        }
+        con.close();
+        return saldo;
+    }
 }

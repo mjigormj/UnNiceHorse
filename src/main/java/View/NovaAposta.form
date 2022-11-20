@@ -36,7 +36,7 @@
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="numeroCavalo" min="-2" max="-2" attributes="0"/>
+                              <Component id="numeroCavaloInput" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -45,7 +45,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="valorApostaInput" min="-2" pref="185" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Component id="btnAddStock" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="btnNovaAposta" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -66,11 +66,11 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="numeroCavalo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="numeroCavaloInput" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnAddStock" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNovaAposta" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="valorApostaInput" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -91,12 +91,12 @@
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="valorApostaInputKeyPressed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnAddStock">
+    <Component class="javax.swing.JButton" name="btnNovaAposta">
       <Properties>
         <Property name="text" type="java.lang.String" value="+"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddStockActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovaApostaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnVoltar">
@@ -107,10 +107,10 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="numeroCavalo">
+    <Component class="javax.swing.JTextField" name="numeroCavaloInput">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numeroCavaloActionPerformed"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="numeroCavaloKeyPressed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numeroCavaloInputActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="numeroCavaloInputKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
