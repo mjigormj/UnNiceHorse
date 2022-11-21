@@ -1,20 +1,11 @@
 package Model;
 
-import java.io.Serializable;
-
-
-public class RankingCavalo implements Serializable{
-    int idCavalo;
+public class RankingCavalo {
     String nomeCavalo;
     Long tempoCavalo;
-    boolean ganhou;
-
-    public int getIdCavalo() {
-        return idCavalo;
-    }
-
-    public void setIdCavalo(int idCavalo) {
-        this.idCavalo = idCavalo;
+    
+    public RankingCavalo(String nomeCavalo){
+        this.setNomeCavalo(nomeCavalo);
     }
 
     public String getNomeCavalo() {
@@ -33,12 +24,5 @@ public class RankingCavalo implements Serializable{
         this.tempoCavalo = tempoCavalo;
     }
 
-    public boolean isGanhou() {
-        return ganhou;
-    }
-
-    public void setGanhou(boolean ganhou) {
-        this.ganhou = ganhou;
-    }
     
 }

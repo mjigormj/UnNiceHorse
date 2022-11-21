@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 public class Cliente {
-    public static RankingCavalo cliente(int cavaloAposta, int valorAposta) {
+    public static List<RankingCavalo> cliente(int cavaloAposta, int valorAposta) {
         Socket socket;
         final int PORTA = 1234;
         final String IP = "127.0.0.1";
         PrintStream out;
         Scanner in;
+        String[] resultList = null;
 
         try {
             socket = new Socket(IP, PORTA);
@@ -42,26 +43,31 @@ public class Cliente {
             out.println(cavaloAposta-1);
             out.println(valorAposta);
 
-            // recebe o resultado da corrida
-            
-            // get the input stream from the connected socket
-            InputStream inputStream = socket.getInputStream();
-            // create a DataInputStream so we can read data from it.
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-
-            // read the list of messages from the socket
-            List<RankingCavalo> rankingCavalos = new ArrayList();
-            rankingCavalos.addAll((List<RankingCavalo>) objectInputStream.readObject());
-            
-            System.out.println("");
-            System.out.println("resultado-> "+rankingCavalos);
+            String resultado = in.nextLine();
+            resultado = resultado.replace("[", "");
+            resultado = resultado.replace("]", "");
+            resultList = resultado.split(", ");
+            System.out.println(resultado);
+            System.out.println(resultList);
 
             socket.close();
             
-        } catch (IOException | ClassNotFoundException | InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             System.out.println("Erro no cliente: " + e.getMessage());
         }
         
-        return new RankingCavalo();
+        return mapperRankingCavalos(resultList);
+    }
+    
+    private static List<RankingCavalo> mapperRankingCavalos(String[] resultados){
+            List<RankingCavalo> rankingCavalos = new ArrayList<>();
+            for(int i = 0; i <= resultados.length ;  i+=2){
+                RankingCavalo rankingCavalo = new RankingCavalo(resultados[i]);
+                rankingCavalo.setTempoCavalo(Long.parseLong(resultados[i]));
+                rankingCavalos.add(rankingCavalo);
+            }
+            
+        
+        return rankingCavalos;
     }
 }

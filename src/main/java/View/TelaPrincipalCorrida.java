@@ -2,12 +2,14 @@ package View;
 
 import Controller.CRUD;
 import Controller.Cliente;
+import Model.RankingCavalo;
 import Model.Stock;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -270,7 +272,7 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
 
     // Methods
     public void corridaCavalo(int aposta, int valorAposta){
-        Cliente.cliente(aposta, valorAposta);
+        List<RankingCavalo> rankingCavalos = Cliente.cliente(aposta, valorAposta);
     }
     private static final DecimalFormat df = new DecimalFormat("0.00");
 //    public void tituloList() throws SQLException, IOException {
