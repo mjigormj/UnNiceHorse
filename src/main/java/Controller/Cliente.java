@@ -7,16 +7,17 @@ import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 public class Cliente {
-    public static List<RankingCavalo> cliente(int cavaloAposta, int valorAposta) {
+    public static List<RankingCavalo> cliente(int cavaloAposta, Double valorAposta) {
         Socket socket;
         final int PORTA = 1234;
         final String IP = "127.0.0.1";
         PrintStream out;
         Scanner in;
-        String[] resultList = null;
+        List<String> resultList = null;
 
         try {
             socket = new Socket(IP, PORTA);
@@ -32,8 +33,9 @@ public class Cliente {
             System.out.println(cavaloAposta);
             Thread.sleep(1 * 1000);
             System.out.println("Quanto deseja apostar: ");
-            System.out.println(valorAposta);
+            System.out.println(valorAposta.toString());
 
+//TODO
 //            while (cavaloAposta<1 || cavaloAposta >5 ) {
 //                System.out.println("Escolha inválida!!!");
 //                System.out.print("Selecione o número do cavalo que deseja apostar(1 a 5): ");
@@ -46,7 +48,7 @@ public class Cliente {
             String resultado = in.nextLine();
             resultado = resultado.replace("[", "");
             resultado = resultado.replace("]", "");
-            resultList = resultado.split(", ");
+            resultList = Arrays.asList(resultado.split(", "));
             System.out.println(resultado);
             System.out.println(resultList);
 
@@ -59,11 +61,11 @@ public class Cliente {
         return mapperRankingCavalos(resultList);
     }
     
-    private static List<RankingCavalo> mapperRankingCavalos(String[] resultados){
+    private static List<RankingCavalo> mapperRankingCavalos(List<String> resultados){
             List<RankingCavalo> rankingCavalos = new ArrayList<>();
-            for(int i = 0; i <= resultados.length ;  i+=2){
-                RankingCavalo rankingCavalo = new RankingCavalo(resultados[i]);
-                rankingCavalo.setTempoCavalo(Long.parseLong(resultados[i]));
+            for(int i = 0; i < resultados.size() ;  i+=2){
+                RankingCavalo rankingCavalo = new RankingCavalo(resultados.get(i));
+                rankingCavalo.setTempoCavalo(Long.parseLong(resultados.get(i+1)));
                 rankingCavalos.add(rankingCavalo);
             }
             

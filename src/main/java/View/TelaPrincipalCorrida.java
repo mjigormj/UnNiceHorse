@@ -12,13 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import jdk.nashorn.internal.objects.NativeArray;
 
 public class TelaPrincipalCorrida extends javax.swing.JFrame {
 
     String stockName;
     String email;
+    String cavaloApostado;
 
     public TelaPrincipalCorrida() {
         initComponents();
@@ -208,7 +211,6 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
         NovaAposta ss = new NovaAposta();
         ss.setVisible(true);
         ss.setEmail(this.getEmail());
-        //Cliente.cliente();
         this.dispose();
     }//GEN-LAST:event_btnNovaApostaActionPerformed
 
@@ -271,10 +273,29 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
     }
 
     // Methods
-    public void corridaCavalo(int aposta, int valorAposta){
+    public void corridaCavalo(int aposta, Double valorAposta) throws SQLException, IOException{
         List<RankingCavalo> rankingCavalos = Cliente.cliente(aposta, valorAposta);
+        boolean ganhou = jogadorGanhou(rankingCavalos.get(0), getCavaloApostado());
+        Double valorAnterior = CRUD.returnValorFromUserTable(this.getEmail());
+        if(ganhou){
+            CRUD.updateInTableCarteira((valorAnterior + valorAposta*2), this.getEmail());
+            valorAnterior = CRUD.returnSaldoFromCarteiraUnNiceHorse(1);
+            CRUD.updateInTableCarteiraUnNiceHorse((valorAnterior - valorAposta), 1);
+            this.atualizarLabel();
+        }
     }
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    
+    private boolean jogadorGanhou(RankingCavalo rankingCavalos, String cavaloApostado) {
+        if(rankingCavalos.getNomeCavalo().equals(cavaloApostado)){
+            JOptionPane.showMessageDialog(null, "VOCÊ GANHOU!!!", "GANHOU!!!", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "você perdeu \n não desista!", "Perdeu", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+    }
+    
+    //private static final DecimalFormat df = new DecimalFormat("0.00");
 //    public void tituloList() throws SQLException, IOException {
 //        
 //        ArrayList<Stock> titulos = CRUD.returnStockFromTable();
@@ -302,7 +323,14 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
+    public String getCavaloApostado() {
+        return cavaloApostado;
+    }
+
+    public void setCavaloApostado(String cavaloApostado) {
+        this.cavaloApostado = cavaloApostado;
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarDinheiro;

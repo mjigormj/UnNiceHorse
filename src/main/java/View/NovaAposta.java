@@ -2,6 +2,7 @@ package View;
 
 import Controller.CRUD;
 import Controller.Conector;
+import Enum.CavaloEnum;
 import Model.Stock;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.awt.event.KeyEvent;
@@ -20,7 +21,8 @@ public class NovaAposta extends javax.swing.JFrame {
     String stockName;
     String email;
     int numeroCavalo;
-    int valorAposta;
+    Double valorAposta;
+    String cavaloApostado;
 
     public NovaAposta() {
         initComponents();
@@ -136,19 +138,21 @@ public class NovaAposta extends javax.swing.JFrame {
     private void btnNovaApostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaApostaActionPerformed
         try {
             this.setNumeroCavalo(Integer.parseInt(numeroCavaloInput.getText()));
-            this.setValorAposta(Integer.parseInt(valorApostaInput.getText()));
+            this.setValorAposta(Double.parseDouble(valorApostaInput.getText()));
+            cavaloApostado = CavaloEnum.cavaloEscolhido(this.getNumeroCavalo()).getNomeCavalo();
             
             Double valorAnterior = CRUD.returnValorFromUserTable(this.email);
             CRUD.updateInTableCarteira((valorAnterior - this.getValorAposta()), this.email);
             valorAnterior = CRUD.returnSaldoFromCarteiraUnNiceHorse(1);
             CRUD.updateInTableCarteiraUnNiceHorse((valorAnterior + this.getValorAposta()), 1);
             JOptionPane.showMessageDialog(null, "Aposta realizada", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
             TelaPrincipalCorrida sl = new TelaPrincipalCorrida();
             sl.setEmail(this.getEmail());
+            sl.setCavaloApostado(cavaloApostado);
             sl.atualizarLabel();
             sl.setVisible(true);
             sl.corridaCavalo(this.getNumeroCavalo(), this.getValorAposta());
-            this.dispose();
 
         } catch (SQLException ex) {            
             Logger.getLogger(NovaAposta.class.getName()).log(Level.SEVERE, null, ex);
@@ -221,11 +225,11 @@ public class NovaAposta extends javax.swing.JFrame {
         this.email = email;
     }
 
-    public int getValorAposta() {
+    public Double getValorAposta() {
         return valorAposta;
     }
 
-    public void setValorAposta(int valorAposta) {
+    public void setValorAposta(Double valorAposta) {
         this.valorAposta = valorAposta;
     }
 
