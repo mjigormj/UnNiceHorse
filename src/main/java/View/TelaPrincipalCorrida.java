@@ -3,19 +3,16 @@ package View;
 import Controller.CRUD;
 import Controller.Cliente;
 import Model.RankingCavalo;
-import Model.Stock;
+import Model.RunnableCavalo;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.internal.objects.NativeArray;
 
 public class TelaPrincipalCorrida extends javax.swing.JFrame {
 
@@ -33,19 +30,18 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jlEmail = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        stockTable = new javax.swing.JTable();
         btnAdicionarDinheiro = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnNovaAposta = new javax.swing.JButton();
         chegada = new javax.swing.JLabel();
         pocoto2 = new javax.swing.JLabel();
         jlSaldo = new javax.swing.JLabel();
-        pocoto1 = new javax.swing.JLabel();
         pocoto4 = new javax.swing.JLabel();
         pocoto3 = new javax.swing.JLabel();
         pocoto5 = new javax.swing.JLabel();
+        pocoto1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -54,25 +50,20 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 289, Short.MAX_VALUE)
+        );
+
         jlEmail.setText("Email do Usuario:");
-
-        stockTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Numero", "Cavalo", "Valor Apostado", "Qtd Apostadores"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(stockTable);
 
         btnAdicionarDinheiro.setText("Adicionar Dinheiro");
         btnAdicionarDinheiro.addActionListener(new java.awt.event.ActionListener() {
@@ -104,9 +95,6 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
 
         jlSaldo.setText("Saldo da carteira:");
 
-        pocoto1.setIcon(new javax.swing.ImageIcon("C:\\Users\\igorc\\OneDrive\\Documentos\\NetBeansProjects\\CorridaCavalo\\src\\main\\java\\View\\Icons\\cavalo1.png")); // NOI18N
-        pocoto1.setToolTipText("");
-
         pocoto4.setIcon(new javax.swing.ImageIcon("C:\\Users\\igorc\\OneDrive\\Documentos\\NetBeansProjects\\CorridaCavalo\\src\\main\\java\\View\\Icons\\cavalo4.png")); // NOI18N
         pocoto4.setToolTipText("");
 
@@ -116,6 +104,9 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
         pocoto5.setIcon(new javax.swing.ImageIcon("C:\\Users\\igorc\\OneDrive\\Documentos\\NetBeansProjects\\CorridaCavalo\\src\\main\\java\\View\\Icons\\cavalo5.png")); // NOI18N
         pocoto5.setToolTipText("");
 
+        pocoto1.setIcon(new javax.swing.ImageIcon("C:\\Users\\igorc\\OneDrive\\Documentos\\NetBeansProjects\\CorridaCavalo\\src\\main\\java\\View\\Icons\\cavalo1.png")); // NOI18N
+        pocoto1.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,18 +115,17 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pocoto4)
-                    .addComponent(pocoto2)
                     .addComponent(pocoto3)
                     .addComponent(pocoto5)
+                    .addComponent(pocoto2)
                     .addComponent(pocoto1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chegada)
                 .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(btnNovaAposta)
@@ -149,7 +139,7 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jlEmail)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +151,7 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addGap(42, 42, 42)
                         .addComponent(pocoto1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pocoto2)
@@ -171,15 +161,14 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
                         .addComponent(pocoto4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pocoto5))
-                    .addComponent(chegada, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(chegada, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarDinheiro)
                     .addComponent(btnDelete)
                     .addComponent(btnNovaAposta))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,7 +176,6 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
 
     private void btnAdicionarDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDinheiroActionPerformed
         try {
-            //new Mover().start();
             AdicionarDinheiro ss = new AdicionarDinheiro();
             ss.setEmail(this.getEmail());
             ss.setVisible(true);
@@ -198,15 +186,7 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarDinheiroActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-//        try {
-//            tituloList();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(TelaPrincipalCorrida.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(TelaPrincipalCorrida.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }//GEN-LAST:event_formComponentShown
-
     private void btnNovaApostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaApostaActionPerformed
         NovaAposta ss = new NovaAposta();
         ss.setVisible(true);
@@ -223,7 +203,6 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel(new FlatOneDarkIJTheme());
@@ -240,81 +219,99 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
             }
         });
     }
-    
+
     //Methods Cavalos
-    
     public void atualizarLabel() {
-    Thread t = new Thread(new Runnable() {
-        public void run() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
                 jlEmail.setText("Email do Usuario: " + getEmail());
-            try {
-                jlSaldo.setText("Saldo da carteira: "+ CRUD.returnValorFromUserTable(getEmail()));
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaPrincipalCorrida.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(TelaPrincipalCorrida.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    jlSaldo.setText("Saldo da carteira: " + CRUD.returnValorFromUserTable(getEmail()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaPrincipalCorrida.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaPrincipalCorrida.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }     
-    });
+        });
         t.start();
     }
-    
-    public class Mover extends Thread{
-        public void run(){
-            while(pocoto1.getLocation().x < 470){
-                try {
-                    sleep(100);
-                } catch (Exception e) {
-                    System.out.println("error " + e);
-                }
-                pocoto1.setBounds(pocoto1.getLocation().x + 5, pocoto1.getLocation().y, pocoto1.getWidth(), pocoto1.getHeight());
-            }
-        }
+
+    public void mover(List<Long> sleepTime) {
+        RunnableCavalo runnableCavalo1 = new RunnableCavalo(pocoto1, "Imperatriz", sleepTime.get(0));
+        RunnableCavalo runnableCavalo2 = new RunnableCavalo(pocoto2, "Duque", sleepTime.get(1));
+        RunnableCavalo runnableCavalo3 = new RunnableCavalo(pocoto3, "Princesa (vc sabe quem)", sleepTime.get(2));
+        RunnableCavalo runnableCavalo4 = new RunnableCavalo(pocoto4, "Pé de Pano", sleepTime.get(3));
+        RunnableCavalo runnableCavalo5 = new RunnableCavalo(pocoto5, "Pangaré", sleepTime.get(4));
+
+        //Instanciando as Threads
+        Thread threadCavalo1 = new Thread(runnableCavalo1, "Imperatriz");
+        Thread threadCavalo2 = new Thread(runnableCavalo2, "Duque");
+        Thread threadCavalo3 = new Thread(runnableCavalo3, "Princesa (vc sabe quem)");
+        Thread threadCavalo4 = new Thread(runnableCavalo4, "Pé de Pano");
+        Thread threadCavalo5 = new Thread(runnableCavalo5, "Pangaré");
+
+        threadCavalo1.start();
+        threadCavalo2.start();
+        threadCavalo3.start();
+        threadCavalo4.start();
+        threadCavalo5.start();
     }
 
     // Methods
-    public void corridaCavalo(int aposta, Double valorAposta) throws SQLException, IOException{
+    public void corridaCavalo(int aposta, Double valorAposta) throws SQLException, IOException {
         List<RankingCavalo> rankingCavalos = Cliente.cliente(aposta, valorAposta);
-        boolean ganhou = jogadorGanhou(rankingCavalos.get(0), getCavaloApostado());
         Double valorAnterior = CRUD.returnValorFromUserTable(this.getEmail());
-        if(ganhou){
-            CRUD.updateInTableCarteira((valorAnterior + valorAposta*2), this.getEmail());
+        this.atualizarLabel();
+        List<Long> sleepTime = tempoCadaCavalo(rankingCavalos);
+        mover(sleepTime);
+        if (jogadorGanhou(rankingCavalos.get(0), getCavaloApostado())) {
+            CRUD.updateInTableCarteira((valorAnterior + valorAposta * 2), this.getEmail());
             valorAnterior = CRUD.returnSaldoFromCarteiraUnNiceHorse(1);
             CRUD.updateInTableCarteiraUnNiceHorse((valorAnterior - valorAposta), 1);
-            this.atualizarLabel();
         }
     }
-    
+
+    private List<Long> tempoCadaCavalo(List<RankingCavalo> rankingCavalos) {
+        List<Long> tempoCadaCavalo = new ArrayList<>();
+        for (RankingCavalo rankingCavalo : rankingCavalos) {
+            if (rankingCavalo.getNomeCavalo().equals("Imperatriz")) {
+                tempoCadaCavalo.add(rankingCavalo.getTempoCavalo());
+            }
+        }
+        for (RankingCavalo rankingCavalo : rankingCavalos) {
+            if (rankingCavalo.getNomeCavalo().equals("Duque")) {
+                tempoCadaCavalo.add(rankingCavalo.getTempoCavalo());
+            }
+        }
+        for (RankingCavalo rankingCavalo : rankingCavalos) {
+            if (rankingCavalo.getNomeCavalo().equals("Princesa (vc sabe quem)")) {
+                tempoCadaCavalo.add(rankingCavalo.getTempoCavalo());
+            }
+        }
+        for (RankingCavalo rankingCavalo : rankingCavalos) {
+            if (rankingCavalo.getNomeCavalo().equals("Pé de Pano")) {
+                tempoCadaCavalo.add(rankingCavalo.getTempoCavalo());
+            }
+        }
+        for (RankingCavalo rankingCavalo : rankingCavalos) {
+            if (rankingCavalo.getNomeCavalo().equals("Pangaré")) {
+                tempoCadaCavalo.add(rankingCavalo.getTempoCavalo());
+            }
+        }
+
+        return tempoCadaCavalo;
+    }
+
     private boolean jogadorGanhou(RankingCavalo rankingCavalos, String cavaloApostado) {
-        if(rankingCavalos.getNomeCavalo().equals(cavaloApostado)){
-            JOptionPane.showMessageDialog(null, "VOCÊ GANHOU!!!", "GANHOU!!!", JOptionPane.INFORMATION_MESSAGE);
+        if (rankingCavalos.getNomeCavalo().equals(cavaloApostado)) {
+            JOptionPane.showMessageDialog(null, "VOCÊ GANHOU!!! \n O cavalo: "+ rankingCavalos.getNomeCavalo() + "venceu a corrida.", "GANHOU!!!", JOptionPane.INFORMATION_MESSAGE);
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "você perdeu \n não desista!", "Perdeu", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O cavalo " + rankingCavalos.getNomeCavalo() +" venceu a corrida\n não desista e aposte novamente!", "Você Perdeu", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
     }
-    
-    //private static final DecimalFormat df = new DecimalFormat("0.00");
-//    public void tituloList() throws SQLException, IOException {
-//        
-//        ArrayList<Stock> titulos = CRUD.returnStockFromTable();
-//        try {
-//            DefaultTableModel val = (DefaultTableModel) stockTable.getModel();
-//            val.setRowCount(0);
-//            for (Stock titulo : titulos) {
-//                String valorAtual = df.format(titulo.getMarcketValue());
-//                String tituloQtd = String.valueOf(titulo.getStockQtd());
-//                String precoMedio = df.format(titulo.getAvgCust());
-//                String valorTotal = df.format(titulo.getMarcketValue() * titulo.getStockQtd());
-//                String lucro = df.format(titulo.getMarcketValue() * titulo.getStockQtd() - titulo.getAvgCust() * titulo.getStockQtd());
-//                val.addRow(new String[]{titulo.getName(), valorAtual, precoMedio, tituloQtd, valorTotal, lucro });
-//            }
-//            
-//        } catch (NumberFormatException e) {
-//            System.out.println("Entrada invalida");
-//        }
-//    }
 
     public String getEmail() {
         return email;
@@ -330,14 +327,14 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
 
     public void setCavaloApostado(String cavaloApostado) {
         this.cavaloApostado = cavaloApostado;
-    }    
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarDinheiro;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNovaAposta;
     public javax.swing.JLabel chegada;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel1;
     private static javax.swing.JLabel jlEmail;
     private javax.swing.JLabel jlSaldo;
     public javax.swing.JLabel pocoto1;
@@ -345,6 +342,5 @@ public class TelaPrincipalCorrida extends javax.swing.JFrame {
     public javax.swing.JLabel pocoto3;
     public javax.swing.JLabel pocoto4;
     public javax.swing.JLabel pocoto5;
-    private javax.swing.JTable stockTable;
     // End of variables declaration//GEN-END:variables
 }

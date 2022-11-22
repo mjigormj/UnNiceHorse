@@ -1,19 +1,13 @@
 package View;
 
 import Controller.CRUD;
-import Controller.Conector;
-import Model.Stock;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 
 public class AdicionarDinheiro extends javax.swing.JFrame {
 
@@ -99,7 +93,7 @@ public class AdicionarDinheiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void valorInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorInputActionPerformed
-        //dinheiro = Double.parseDouble(valorInput.getText().trim());
+        
     }//GEN-LAST:event_valorInputActionPerformed
 
     private void valorInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorInputKeyPressed

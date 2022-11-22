@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Stock;
 import Model.User;
 import java.io.IOException;
 import java.sql.Array;

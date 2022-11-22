@@ -1,6 +1,5 @@
 package View;
 
-
 import Controller.Conector;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.sql.Connection;
@@ -9,11 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-
-
 
 public class LoginScreen extends javax.swing.JFrame {
 

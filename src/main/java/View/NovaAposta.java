@@ -1,20 +1,15 @@
 package View;
 
 import Controller.CRUD;
-import Controller.Conector;
 import Enum.CavaloEnum;
-import Model.Stock;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 
 public class NovaAposta extends javax.swing.JFrame {
 
@@ -139,30 +134,33 @@ public class NovaAposta extends javax.swing.JFrame {
         try {
             this.setNumeroCavalo(Integer.parseInt(numeroCavaloInput.getText()));
             this.setValorAposta(Double.parseDouble(valorApostaInput.getText()));
-            cavaloApostado = CavaloEnum.cavaloEscolhido(this.getNumeroCavalo()).getNomeCavalo();
-            
             Double valorAnterior = CRUD.returnValorFromUserTable(this.email);
-            CRUD.updateInTableCarteira((valorAnterior - this.getValorAposta()), this.email);
-            valorAnterior = CRUD.returnSaldoFromCarteiraUnNiceHorse(1);
-            CRUD.updateInTableCarteiraUnNiceHorse((valorAnterior + this.getValorAposta()), 1);
-            JOptionPane.showMessageDialog(null, "Aposta realizada", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-            TelaPrincipalCorrida sl = new TelaPrincipalCorrida();
-            sl.setEmail(this.getEmail());
-            sl.setCavaloApostado(cavaloApostado);
-            sl.atualizarLabel();
-            sl.setVisible(true);
-            sl.corridaCavalo(this.getNumeroCavalo(), this.getValorAposta());
+            
+            if(this.getNumeroCavalo() > 0 && this.getNumeroCavalo() < 6){
+                if(valorAposta > 0 && (valorAnterior - valorAposta) >= 0 ){                    
+                    cavaloApostado = CavaloEnum.cavaloEscolhido(this.getNumeroCavalo()).getNomeCavalo();
+                    CRUD.updateInTableCarteira((valorAnterior - this.getValorAposta()), this.email);
+                    valorAnterior = CRUD.returnSaldoFromCarteiraUnNiceHorse(1);
+                    CRUD.updateInTableCarteiraUnNiceHorse((valorAnterior + this.getValorAposta()), 1);
+                    JOptionPane.showMessageDialog(null, "Aposta realizada", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                    TelaPrincipalCorrida sl = new TelaPrincipalCorrida();
+                    sl.setEmail(this.getEmail());
+                    sl.setCavaloApostado(cavaloApostado);
+                    sl.atualizarLabel();
+                    sl.setVisible(true);
+                    sl.corridaCavalo(this.getNumeroCavalo(), this.getValorAposta());
+                    
+                } else { JOptionPane.showMessageDialog(null, "SALDO INSERIDO INDISPONIVEL OU INFERIOR A 1", "!AVISO!", JOptionPane.ERROR_MESSAGE); } 
+            } else {
+                JOptionPane.showMessageDialog(null, "ESCOLHA UMA OPÇÃO VALIDA", "!AVISO!", JOptionPane.ERROR_MESSAGE);
+            }
 
         } catch (SQLException ex) {            
             Logger.getLogger(NovaAposta.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch ( IOException | NumberFormatException e) {
+        } catch ( IOException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "DIGITE APENAS NÚEMEROS", "ERRO", JOptionPane.ERROR_MESSAGE);
-
         }
-
-
     }//GEN-LAST:event_btnNovaApostaActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -240,12 +238,6 @@ public class NovaAposta extends javax.swing.JFrame {
     public void setNumeroCavalo(int numeroCavalo) {
         this.numeroCavalo = numeroCavalo;
     }
-    
-    
-    
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNovaAposta;

@@ -2,8 +2,6 @@ package Controller;
 
 import Model.RankingCavalo;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -34,13 +32,6 @@ public class Cliente {
             Thread.sleep(1 * 1000);
             System.out.println("Quanto deseja apostar: ");
             System.out.println(valorAposta.toString());
-
-//TODO
-//            while (cavaloAposta<1 || cavaloAposta >5 ) {
-//                System.out.println("Escolha inválida!!!");
-//                System.out.print("Selecione o número do cavalo que deseja apostar(1 a 5): ");
-//                cavaloAposta = teclado.nextInt();
-//            }
 
             out.println(cavaloAposta-1);
             out.println(valorAposta);
